@@ -1,14 +1,37 @@
 package com.tevthedev.pokedex.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+
+@Entity
+@Table(name = "PokemonDB")
 public class Pokemon {
+
+    @Id
+    private long id;
+
+    @Column(nullable = false)
     private String name;
-    private List<String> types = new ArrayList<>();
+
+    @Column(nullable = false)
+    private String primaryType;
+
+
+    private String secondaryType;
+
+    @Column(nullable = false)
     private int HP;
+
+    @Column(nullable = false)
     private int attack;
+
+    @Column(nullable = false)
     private int defense;
+
+    @Column(nullable = false)
     private String sprite;
 
     public String getName() {
@@ -19,12 +42,20 @@ public class Pokemon {
         this.name = name;
     }
 
-    public List<String> getTypes() {
-        return types;
+    public String getPrimaryType() {
+        return primaryType;
     }
 
-    public void setTypes(String type) {
-        this.types.add(type);
+    public void setPrimaryType(String primaryType) {
+        this.primaryType = primaryType;
+    }
+
+    public String getSecondaryType() {
+        return secondaryType;
+    }
+
+    public void setSecondaryType(String secondaryType) {
+        this.secondaryType = secondaryType;
     }
 
     public int getHP() {
@@ -57,5 +88,13 @@ public class Pokemon {
 
     public void setSprite(String sprite) {
         this.sprite = sprite;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
