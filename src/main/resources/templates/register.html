@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Pokedex Registration</title>
+
+</head>
+
+<body>
+
+<h1>Register</h1>
+
+<form method="POST" th:action="@{/register}">
+
+  <label for="username">Username</label>
+  <input type="text" name="username" id="username"> <br>
+
+  <label for="password">Password</label>
+  <input type="text" name="password" id="password"> <br>
+
+  <label for="confirm">Confirm password</label>
+  <input type="text" name="confirm" id="confirm"> <br>
+
+  <label for="email">Email</label>
+  <input type="text" name="email" id="email"> <br>
+
+    <input type="submit" value="Register">
+</form>
+
+</body>
+
+</html>

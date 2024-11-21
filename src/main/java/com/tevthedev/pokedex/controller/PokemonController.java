@@ -7,12 +7,13 @@ import com.tevthedev.pokedex.service.PokemonService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.tevthedev.pokedex.service.PokemonService.JsonToPokemonConverter;
 
 
 @RestController
-@RequestMapping("/pokemon")
+@RequestMapping("/")
 public class PokemonController {
 
     private final PokemonProxy pokemonProxy;
@@ -23,17 +24,19 @@ public class PokemonController {
         this.pokemonService = pokemonService;
     }
 
+    @GetMapping
+    public List<Pokemon> getAllPokemon(@RequestParam(required = false) Integer page) {
+        return pokemonService.getAllPokemonByPage(Objects.requireNonNullElse(page, 0));
+    }
 
-    @GetMapping("/{id}")
+
+    @GetMapping("/pokemon/{id}")
     @ResponseBody
     public Pokemon getPokemon(@PathVariable Long id) {
         return pokemonService.findById(id);
     }
 
-    @GetMapping("/all")
-    public List<Pokemon> getAllPokemon(@RequestParam(required = false) int page) {
-        return pokemonService.getAllPokemonByPage(page);
-    }
+
 }
 
 

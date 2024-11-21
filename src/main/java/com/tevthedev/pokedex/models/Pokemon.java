@@ -1,9 +1,9 @@
 package com.tevthedev.pokedex.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 
 @Entity
@@ -33,6 +33,11 @@ public class Pokemon {
 
     @Column(nullable = false)
     private String sprite;
+
+    @ManyToMany(mappedBy = "ListOfFavoritePokemon")
+
+    @JsonIgnore
+    private List<User> favoritedBy;
 
     public String getName() {
         return name;
@@ -96,5 +101,17 @@ public class Pokemon {
 
     public Long getId() {
         return id;
+    }
+
+    public List<User> getFavoritedBy() {
+        return favoritedBy;
+    }
+
+    public void setFavoritedBy(List<User> favoritedBy) {
+        this.favoritedBy = favoritedBy;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

@@ -26,9 +26,6 @@ public class PokemonService {
 
     }
 
-    public List<Pokemon> findAll() {
-        return pokemonJPARepository.findAll();
-    }
 
     public Pokemon findById(Long id) {
         return pokemonJPARepository.findById(id).orElseThrow(PokemonNotFoundException::new);
