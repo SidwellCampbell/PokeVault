@@ -64,4 +64,5 @@ public class User implements UserDetails {
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
+
 }

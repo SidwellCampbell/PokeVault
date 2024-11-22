@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.tevthedev.pokedex.models.Pokemon;
 import com.tevthedev.pokedex.proxy.PokemonProxy;
 import com.tevthedev.pokedex.service.PokemonService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.Objects;
 import static com.tevthedev.pokedex.service.PokemonService.JsonToPokemonConverter;
 
 
-@RestController
+@Controller
 @RequestMapping("/")
 public class PokemonController {
 
@@ -25,8 +27,10 @@ public class PokemonController {
     }
 
     @GetMapping
-    public List<Pokemon> getAllPokemon(@RequestParam(required = false) Integer page) {
-        return pokemonService.getAllPokemonByPage(Objects.requireNonNullElse(page, 0));
+    public String getAllPokemon(@RequestParam(required = false) Integer page, Model model) {
+        List<Pokemon> allPokemon = pokemonService.getAllPokemonByPage(Objects.requireNonNullElse(page, 0));
+        model.addAttribute("allPokemon", allPokemon);
+        return "index";
     }
 
 

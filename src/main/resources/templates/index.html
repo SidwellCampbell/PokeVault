@@ -1,10 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
-</head>
-<body>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
+</head>
+<body style="padding-top: 100px; background-color: #F5F5FF">
+<nav style="z-index: 1"
+	 class="navbar navbar-dark navbar-expand-md navbar-light bg-primary bg-gradient position-fixed top-0 w-100">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#"><img src="/logo.png" width="60" height="auto" alt=""></a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				
+				<li class="nav-item">
+					<a class="nav-link active text-white" aria-current="page" th:href="@{/}">Home</a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/login}">Login</a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/register}">SignUp</a>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/logout}">Logout</a>
+				</li>
+			</ul>
+			<!--			Search Box	-->
+			<form class="d-flex">
+				<input class="form-control me-2" type="search" placeholder="Search Pokemon" aria-label="Search">
+				<button class="btn btn-warning" type="submit">Search</button>
+			</form>
+		
+		</div>
+	
+	</div>
+</nav>
+
+
+<!-- cards-->
+<div class="container">
+	<div class="row g-4">
+		<div class="col-12 col-sm-6 col-md-3" th:each="pokemon: ${allPokemon}">
+			
+			<div class="card shadow bg-body rounded h-100" style="background-color: #F8F9FA">
+				
+				<img th:src="${pokemon.sprite}" alt="image of pokemon" class="card-img-top"
+					 style="background-color: #E3F2FD">
+				
+				<div class="card-body">
+					
+					<h1 th:text="${pokemon.name}" class="card-title text-uppercase text-primary h3 mb-3"></h1>
+					
+					<div class="card-text row d-flex justify-content-around">
+						
+						<div class="col-3">
+							<h5 class="text-primary fw-bold">HP</h5>
+							<p class="text-secondary fw-semibold" th:text="${pokemon.HP}">99</p>
+						</div>
+						
+						<div class="col-3">
+							<h5 class="text-danger fw-bold">ATK</h5>
+							<p class="text-secondary fw-semibold" th:text="${pokemon.attack}">99</p>
+						</div>
+						
+						<div class="col-3 mb-5">
+							<h5 class="text-success fw-bold">DEF</h5>
+							<p class="text-secondary fw-semibold" th:text="${pokemon.defense}">99</p>
+						</div>
+					
+					</div>
+					<form th:action="@{/user/{pokemonId}(pokemonId=${pokemon.id})}" th:method="POST">
+						<button CLASS="btn btn-primary" type="submit">Add to faves</button>
+					</form>
+				</div>
+			
+			
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+		crossorigin="anonymous">
+
+
+</script>
 </body>
 </html>

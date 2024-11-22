@@ -44,7 +44,7 @@ public class SecurityConfig {
         return http.authorizeHttpRequests(auth ->
                         auth.requestMatchers("/user", "/user/**")
                                 .hasRole("USER")
-                                .requestMatchers("/", "/**", "/register", "/assets/**").permitAll())
+                                .requestMatchers("/", "/**", "/register").permitAll())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .failureUrl("/login?error=true")

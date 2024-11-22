@@ -3,6 +3,7 @@ package com.tevthedev.pokedex.service;
 import com.tevthedev.pokedex.models.Pokemon;
 import com.tevthedev.pokedex.models.User;
 import com.tevthedev.pokedex.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.antlr.v4.runtime.misc.LogManager;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +36,13 @@ public class UserService {
 
     public User findById(Long userId) {
         return userRepository.findById(userId).orElseThrow();
+    }
+
+
+    @Transactional
+    public void addToFavesAndSave(String username, Pokemon poke) {
+        User user = userRepository.findByUsernameIgnoreCase(username);
+        user.getListOfFavoritePokemon().add(poke);
+        userRepository.save(user);
     }
 }
