@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends ListCrudRepository<User, Long> {
 
     User findByUsername(String username);
+
+    User findByUsernameIgnoreCase(String username);
 }

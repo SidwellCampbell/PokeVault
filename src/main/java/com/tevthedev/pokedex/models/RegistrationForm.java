@@ -8,9 +8,15 @@ public class RegistrationForm {
 
     private String username;
     private String password;
+    private String confirm;
     private String email;
 
     public User process(PasswordEncoder passwordEncoder) {
-        return new User(username, passwordEncoder.encode(password) , email);
+        return new User(username, passwordEncoder.encode(password), email);
     }
+
+    public boolean passwordsMatch() {
+        return password.equals(confirm);
+    }
+
 }

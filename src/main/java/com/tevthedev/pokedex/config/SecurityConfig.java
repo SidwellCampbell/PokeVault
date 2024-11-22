@@ -31,7 +31,7 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository) {
         return username -> {
-            User user = userRepository.findByUsername(username);
+            User user = userRepository.findByUsernameIgnoreCase(username);
             if (user != null) {
                 return user;
             }
@@ -42,12 +42,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(auth ->
-                auth.requestMatchers("/user", "/user/**")
-                        .hasRole("USER")
-                        .requestMatchers("/", "/**").permitAll())
+                        auth.requestMatchers("/user", "/user/**")
+                                .hasRole("USER")
+                                .requestMatchers("/", "/**", "/register", "/assets/**").permitAll())
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .failureUrl("/login?error")
+                        .failureUrl("/login?error=true")
                         .defaultSuccessUrl("/"))
                 .logout(logout -> logout.logoutUrl("/logout")
                         .logoutSuccessUrl("/")
@@ -67,5 +67,5 @@ public class SecurityConfig {
 //                Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
 //
 //        return new InMemoryUserDetailsManager(userList);
-    }
+}
 

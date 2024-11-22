@@ -7,17 +7,20 @@ import org.antlr.v4.runtime.misc.LogManager;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class UserService {
 
     private UserRepository userRepository;
+    private Logger logger = Logger.getLogger(UserService.class.getName());
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     public void saveUser(User user) {
+        logger.info("user being saved to database from service method");
         userRepository.save(user);
     }
 

@@ -8,52 +8,45 @@
 
 </head>
 
-<body>
+<body style="width: 100vw; height: 100vh">
 
-<p class="h1 text-center mt-5">Login</p>
 
-<div class="container">
-	<form method="POST" th:action="@{/login}">
+<div class="container w-100 d-flex flex-column align-items-center">
+	<p class="h1 text-center mt-5">Login</p>
+	
+	<form method="POST" th:action="@{/login}" class="mb-3">
 		
 		<div class="mb-3">
 			<label for="username" class="form-label">Username</label>
 			<input type="text" name="username" id="username" class="form-control">
-			<div class="form-text">Username must be at least 8 characters long</div>
 		</div>
 		
 		<div class="mb-3">
 			<label for="password" class="form-label">Password</label>
-			<input type="text" name="password" id="password" class="form-control">
-			<div class="form-text">Password must be at least 8 characters long</div>
+			<input type="password" name="password" id="password" class="form-control">
 		</div>
 		
+		<!--		form buttons    -->
 		
 		<input type="submit" class="btn btn-primary">
 		<a th:href="@{/register}" class="btn btn-outline-danger">Sign up Now</a>
 	</form>
+	
+	<!--	If errorPresent during Login attempt, display security messages   -->
+	
+	<div th:if="${errorPresent}" class="text-danger">
+		<div th:each="errorMessage: ${errorMessages}">
+			<p th:text="${errorMessage}"></p>
+		</div>
+	</div>
 </div>
 
-
-<!--<h1>Login</h1>-->
-
-<!--<div th:text="${error}">-->
-<!--</div>-->
-
-<!--<p>New here? Click-->
-<!--	<a th:href="@{/register}">here</a> to register.</p>-->
-
-<!--<form method="POST" th:action="@{/login}" id="loginForm">-->
-<!--	<label for="username">Username: </label>-->
-<!--	<input type="text" name="username" id="username"/><br/>-->
-<!--	-->
-<!--	<label for="password">Password: </label>-->
-<!--	<input type="password" name="password" id="password"/><br/>-->
-<!--	-->
-<!--	<input type="submit" value="Login"/>-->
-<!--</form>-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous">
+
+
+</script>
 
 </body>
 </html>
