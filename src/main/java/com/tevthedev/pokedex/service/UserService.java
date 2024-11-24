@@ -20,6 +20,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+
     public void saveUser(User user) {
         logger.info("user being saved to database from service method");
         userRepository.save(user);
@@ -38,11 +39,25 @@ public class UserService {
         return userRepository.findById(userId).orElseThrow();
     }
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsernameIgnoreCase(username);
+    }
 
-    @Transactional
+
+    //    @Transactional
     public void addToFavesAndSave(String username, Pokemon poke) {
         User user = userRepository.findByUsernameIgnoreCase(username);
         user.getListOfFavoritePokemon().add(poke);
         userRepository.save(user);
+    }
+
+    public void deletePokemon(String username, Pokemon pokemon) {
+        var user = userRepository.findByUsernameIgnoreCase(username);
+        logger.info("user found in user service delete method. user: " + user.getUsername());
+        logger.info(" size of pokemon list before delete: " + user.getListOfFavoritePokemon().size());
+        user.getListOfFavoritePokemon().removeIf(poke -> poke.getId() == pokemon.getId());
+        logger.info(" size of pokemon list after delete: " + user.getListOfFavoritePokemon().size());
+        userRepository.save(user);
+
     }
 }

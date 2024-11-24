@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -40,5 +41,10 @@ public class Pokemon {
     @JsonIgnore
     private List<User> favoritedBy;
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Pokemon pokemon)) return false;
+        return getId() == pokemon.getId() && Objects.equals(getName(), pokemon.getName());
+    }
 
 }
