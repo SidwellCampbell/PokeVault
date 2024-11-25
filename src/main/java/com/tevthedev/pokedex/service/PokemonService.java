@@ -36,14 +36,18 @@ public class PokemonService {
     }
 
 
-    public List<Pokemon> getAllPokemonByPage(int page) {
-        Pageable pageable = PageRequest.of(page, 50);
+    public List<Pokemon> getAllPokemonByPage(int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber, 50);
         return pokemonJPARepository.findAll(pageable).getContent();
     }
 
 
     public List<Pokemon> getAll() {
         return pokemonJPARepository.findAll();
+    }
+
+    public int getTotalPages() {
+        return (int) Math.ceil(pokemonJPARepository.count() / 50.0);
     }
 
 

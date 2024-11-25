@@ -2,9 +2,7 @@ package com.tevthedev.pokedex.initializer;
 
 import com.tevthedev.pokedex.repository.PokemonJPARepository;
 import com.tevthedev.pokedex.service.DBInitializerService;
-import org.springframework.context.event.ApplicationContextEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.ContextStoppedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 

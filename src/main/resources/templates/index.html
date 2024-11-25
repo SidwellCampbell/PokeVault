@@ -11,7 +11,8 @@
 </head>
 <body style="padding-top: 100px; background-color: #F5F5FF">
 
-<nav class="navbar navbar-dark navbar-expand-md navbar-light bg-primary bg-gradient position-fixed top-0 w-100">
+<nav class="navbar navbar-dark navbar-expand-md navbar-light bg-primary bg-gradient position-fixed top-0 w-100"
+	 style="z-index: 1">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="#"><img src="/logo.png" width="auto" height="30" alt=""></a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -120,6 +121,15 @@
 		</div>
 	</div>
 </div>
+
+<nav>
+	<ul class="pagination justify-content-center mt-5 align-content-end">
+		<li th:each="pageNum: ${#numbers.sequence(0, totalPages - 1)}"
+			class="page-item"><a class="page-link" th:href="@{/(page=${pageNum})}"
+								 th:text="${pageNum + 1}"></a>
+		</li>
+	</ul>
+</nav>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
