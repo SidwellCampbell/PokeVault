@@ -10,7 +10,7 @@
 <body style="padding-top: 100px; background-color: #F5F5FF">
 <nav class="navbar navbar-dark navbar-expand-md navbar-light bg-primary bg-gradient position-fixed top-0 w-100">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="#"><img src="/logo.png" width="60" height="auto" alt=""></a>
+		<a class="navbar-brand" href="#"><img src="/logo.png" width="auto" height="30" alt=""></a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -57,7 +57,7 @@
 <!-- cards-->
 <div class="container">
 	<div class="row g-4">
-		<div class="col-12 col-sm-6 col-md-3" th:each="pokemon: ${favoritePokemon}">
+		<div class="col-12 col-sm-6 col-md-4 col-lg-3" th:each="pokemon: ${favoritePokemon}">
 			
 			<div class="card shadow bg-body rounded h-100" style="background-color: #F8F9FA">
 				
@@ -68,24 +68,37 @@
 					
 					<h1 th:text="${pokemon.name}" class="card-title text-uppercase text-primary h3 mb-3"></h1>
 					
-					<div class="card-text row d-flex justify-content-around">
+					<div class="card-text row justify-content-around mb-3">
 						
-						<div class="col-3">
+						<div class="col-3 d-flex flex-column align-items-center">
 							<h5 class="text-primary fw-bold">HP</h5>
-							<p class="text-secondary fw-semibold" th:text="${pokemon.HP}">99</p>
+							<p class="text-secondary fw-semibold m-0" th:text="${pokemon.HP}">99</p>
 						</div>
 						
-						<div class="col-3">
+						<div class="col-3 d-flex flex-column align-items-center">
 							<h5 class="text-danger fw-bold">ATK</h5>
-							<p class="text-secondary fw-semibold" th:text="${pokemon.attack}">99</p>
+							<p class="text-secondary fw-semibold m-0" th:text="${pokemon.attack}">99</p>
 						</div>
 						
-						<div class="col-3 mb-5">
+						<div class="col-3 d-flex flex-column align-items-center">
 							<h5 class="text-success fw-bold">DEF</h5>
-							<p class="text-secondary fw-semibold" th:text="${pokemon.defense}">99</p>
+							<p class="text-secondary fw-semibold m-0" th:text="${pokemon.defense}">99</p>
 						</div>
-					
 					</div>
+					<div class="container-fluid mb-5">
+						<div class="row">
+							<div class="col-6">
+								<img class="w-100" th:src="${typeIcons.get(pokemon.getPrimaryType().toLowerCase())}"
+									 alt="">
+							</div>
+							
+							<div class="col-6" th:if="${pokemon.getSecondaryType() != null}">
+								<img class="w-100" th:src="${typeIcons.get(pokemon.getSecondaryType().toLowerCase())}"
+									 alt="">
+							</div>
+						</div>
+					</div>
+					
 					<form th:action="@{/user/favorites}" th:method="POST">
 						<input type="hidden" name="pokemonId" th:value="${pokemon.id}">
 						<input type="hidden" name="_method" th:value="DELETE">

@@ -1,5 +1,6 @@
 package com.tevthedev.pokedex.controller;
 
+import com.tevthedev.pokedex.helpers.TypeIconMappingService;
 import com.tevthedev.pokedex.models.Pokemon;
 import com.tevthedev.pokedex.models.User;
 import com.tevthedev.pokedex.service.PokemonService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -23,22 +25,26 @@ public class UserController {
 
     private final UserService userService;
     private final PokemonService pokemonService;
+    private final TypeIconMappingService typeIconMappingService;
     Logger logger = Logger.getLogger(UserController.class.getName());
 
-    public UserController(UserService userService, PokemonService pokemonService, @Qualifier("userDetailsService") UserDetailsService userDetailsService) {
+    public UserController(UserService userService, PokemonService pokemonService, @Qualifier("userDetailsService") UserDetailsService userDetailsService, TypeIconMappingService typeIconMappingService) {
         this.userService = userService;
         this.pokemonService = pokemonService;
+        this.typeIconMappingService = typeIconMappingService;
     }
 
-    //    @Transactional
     @GetMapping("/favorites")
     public String getFavorites(@AuthenticationPrincipal User user, Model model) {
         user = userService.findByUsername(user.getUsername());
-        model.addAttribute("favoritePokemon", user.getListOfFavoritePokemon());
+        List<Pokemon> userList = user.getListOfFavoritePokemon();
+        userList = userList.stream().sorted(Comparator.comparing(Pokemon::getName)).toList();
+        model.addAttribute("favoritePokemon", userList);
+        model.addAttribute("typeIcons", typeIconMappingService.getIcons());
         return "userFavorites";
     }
 
-    //    @Transactional
+
     @PostMapping("/favorites")
     public String savePokemonToListOfFaves(@AuthenticationPrincipal User user,
                                            @RequestParam(required = false, name = "_method", defaultValue = "POST") String method,

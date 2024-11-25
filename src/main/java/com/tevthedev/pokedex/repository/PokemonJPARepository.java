@@ -7,4 +7,5 @@ public interface PokemonJPARepository extends JpaRepository<Pokemon, Long> {
 
 
     Pokemon findPokemonByNameIgnoreCase(String name);
+
 }

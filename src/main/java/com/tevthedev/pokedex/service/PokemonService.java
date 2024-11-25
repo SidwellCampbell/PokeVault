@@ -21,7 +21,6 @@ public class PokemonService {
 
 
     public void savePokemon(Pokemon pokemon) {
-        // Save the pokemon to the database
         pokemonJPARepository.save(pokemon);
 
     }
@@ -31,6 +30,7 @@ public class PokemonService {
         return pokemonJPARepository.findById(id).orElseThrow(PokemonNotFoundException::new);
     }
 
+
     public Pokemon findByName(String name) {
         return pokemonJPARepository.findPokemonByNameIgnoreCase(name);
     }
@@ -39,6 +39,11 @@ public class PokemonService {
     public List<Pokemon> getAllPokemonByPage(int page) {
         Pageable pageable = PageRequest.of(page, 50);
         return pokemonJPARepository.findAll(pageable).getContent();
+    }
+
+
+    public List<Pokemon> getAll() {
+        return pokemonJPARepository.findAll();
     }
 
 
@@ -70,6 +75,5 @@ public class PokemonService {
                 .get("front_default").asText());
         return pokemon;
     }
-
 
 }
