@@ -22,14 +22,9 @@ public class UserService {
 
 
     public void saveUser(User user) {
-        logger.info("user being saved to database from service method");
         userRepository.save(user);
     }
 
-    public void addPokemonToUserFavorites(Pokemon pokemon, User user) {
-        user.getListOfFavoritePokemon().add(pokemon);
-        userRepository.save(user);
-    }
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -47,16 +42,18 @@ public class UserService {
     //    @Transactional
     public void addToFavesAndSave(String username, Pokemon poke) {
         User user = userRepository.findByUsernameIgnoreCase(username);
-        user.getListOfFavoritePokemon().add(poke);
-        userRepository.save(user);
+        if (user.getListOfFavoritePokemon().contains(poke)) {
+            logger.info("pokemon already exists in repo");
+        } else {
+            user.getListOfFavoritePokemon().add(poke);
+            userRepository.save(user);
+        }
+
     }
 
     public void deletePokemon(String username, Pokemon pokemon) {
         var user = userRepository.findByUsernameIgnoreCase(username);
-        logger.info("user found in user service delete method. user: " + user.getUsername());
-        logger.info(" size of pokemon list before delete: " + user.getListOfFavoritePokemon().size());
         user.getListOfFavoritePokemon().removeIf(poke -> poke.getId() == pokemon.getId());
-        logger.info(" size of pokemon list after delete: " + user.getListOfFavoritePokemon().size());
         userRepository.save(user);
 
     }

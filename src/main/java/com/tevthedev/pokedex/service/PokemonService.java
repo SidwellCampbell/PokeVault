@@ -13,12 +13,12 @@ import java.util.List;
 
 @Service
 public class PokemonService {
-
     private final PokemonJPARepository pokemonJPARepository;
 
     public PokemonService(PokemonJPARepository pokemonJPARepository) {
         this.pokemonJPARepository = pokemonJPARepository;
     }
+
 
     public void savePokemon(Pokemon pokemon) {
         // Save the pokemon to the database
@@ -31,10 +31,16 @@ public class PokemonService {
         return pokemonJPARepository.findById(id).orElseThrow(PokemonNotFoundException::new);
     }
 
+    public Pokemon findByName(String name) {
+        return pokemonJPARepository.findPokemonByNameIgnoreCase(name);
+    }
+
+
     public List<Pokemon> getAllPokemonByPage(int page) {
         Pageable pageable = PageRequest.of(page, 50);
         return pokemonJPARepository.findAll(pageable).getContent();
     }
+
 
     public static Pokemon JsonToPokemonConverter(JsonNode jsonNode) {
         Pokemon pokemon = new Pokemon();

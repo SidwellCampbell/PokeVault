@@ -45,27 +45,19 @@ public class SecurityConfig {
                         auth.requestMatchers("/user", "/user/**")
                                 .hasRole("USER")
                                 .requestMatchers("/", "/**", "/register").permitAll())
+
                 .formLogin(form -> form
                         .loginPage("/login")
                         .failureUrl("/login?error=true")
                         .defaultSuccessUrl("/"))
-                .logout(logout -> logout.logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
-                        .clearAuthentication(true)
+
+                .logout(logout -> logout.logoutUrl("/")
+//                        .logoutSuccessUrl("/")
+                                .clearAuthentication(true)
                 )
 
                 .build();
     }
 
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        List<UserDetails> userList = new ArrayList<>();
-//        userList.add(new User("buzz", passwordEncoder().encode("password"),
-//                Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
-//
-//        userList.add(new User("woody", passwordEncoder().encode("password"),
-//                Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
-//
-//        return new InMemoryUserDetailsManager(userList);
 }
 

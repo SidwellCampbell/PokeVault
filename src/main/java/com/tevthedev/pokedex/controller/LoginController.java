@@ -1,6 +1,8 @@
 package com.tevthedev.pokedex.controller;
 
 import com.tevthedev.pokedex.models.LoginForm;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,15 +25,13 @@ public class LoginController {
         this.userDetailsService = userDetailsService;
     }
 
-//    @GetMapping
-//    public String login() {
-//        return "login.html";
-//    }
-
 
     @GetMapping
     public String getLoginForm(@RequestParam(required = false, value = "error") Boolean errorPresent, Model model) {
-        if (errorPresent == null) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.isAuthenticated() && !auth.getPrincipal().equals("anonymousUser")) {
+            return "redirect:/user/favorites";
+        } else if (errorPresent == null) {
             return "login"; // Render the login.html view
         } else {
             List<String> errorMessages = new ArrayList<>();
@@ -43,16 +43,4 @@ public class LoginController {
 
     }
 
-//    @PostMapping
-//    public String processLoginForm(@ModelAttribute LoginForm form, Model model) {
-//        List<String> errorMessages = new ArrayList<>();
-//        UserDetails possibleUser = userDetailsService.loadUserByUsername(form.getUsername());
-//        if (possibleUser != null && passwordEncoder.matches(form.getPassword(), possibleUser.getPassword())) {
-//            return "redirect:/";
-//        }
-//        errorMessages.add("Username or password is incorrect");
-//        model.addAttribute("errorMessages", errorMessages);
-//        model.addAttribute("errorPresent", true);
-//        return "login";
-//    }
 }

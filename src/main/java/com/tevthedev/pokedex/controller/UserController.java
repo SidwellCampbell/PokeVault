@@ -44,7 +44,6 @@ public class UserController {
                                            @RequestParam(required = false, name = "_method", defaultValue = "POST") String method,
                                            @RequestParam("pokemonId") Long pokemonId, Model model) {
 
-
         var pokemon = pokemonService.findById(pokemonId);
 
         if (method.equals("DELETE")) {
