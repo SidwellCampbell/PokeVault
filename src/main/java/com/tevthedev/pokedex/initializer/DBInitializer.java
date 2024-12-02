@@ -2,12 +2,14 @@ package com.tevthedev.pokedex.initializer;
 
 import com.tevthedev.pokedex.repository.PokemonJPARepository;
 import com.tevthedev.pokedex.service.DBInitializerService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.util.logging.Logger;
 
+@Profile("!test")
 @Component
 public class DBInitializer {
 

@@ -51,11 +51,6 @@ public class SecurityConfig {
                         .failureUrl("/login?error=true")
                         .defaultSuccessUrl("/"))
 
-                .logout(logout -> logout.logoutUrl("/")
-//                        .logoutSuccessUrl("/")
-                                .clearAuthentication(true)
-                )
-
                 .build();
     }
 

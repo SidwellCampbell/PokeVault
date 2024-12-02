@@ -1,12 +1,8 @@
 package com.tevthedev.pokedex.controller;
 
 import com.tevthedev.pokedex.models.RegistrationForm;
-import com.tevthedev.pokedex.repository.UserRepository;
 import com.tevthedev.pokedex.service.RegistrationFormService;
 import com.tevthedev.pokedex.service.UserService;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 

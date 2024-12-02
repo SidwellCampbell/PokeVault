@@ -19,6 +19,7 @@
 				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
+		
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
 				
@@ -38,8 +39,14 @@
 					<a class="nav-link" th:href="@{/register}">SignUp</a>
 				</li>
 				
+				
 				<li sec:authorize="isAuthenticated()" class="nav-item text-white">
-					<a class="nav-link" th:href="@{/logout}">Logout</a>
+					<form class="nav-link" th:action="@{/logout}" th:method="POST">
+						<button class="p-0 m-0 bg-transparent border-0"
+								style="background: none; color: inherit; font: inherit;">
+							Logout
+						</button>
+					</form>
 				</li>
 			</ul>
 			
@@ -122,7 +129,7 @@
 	</div>
 </div>
 
-<nav>
+<nav th:if="${totalPages}">
 	<ul class="pagination justify-content-center mt-5 align-content-end">
 		<li th:each="pageNum: ${#numbers.sequence(0, totalPages - 1)}"
 			class="page-item"><a class="page-link" th:href="@{/(page=${pageNum})}"

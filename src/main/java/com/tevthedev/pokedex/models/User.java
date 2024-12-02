@@ -9,15 +9,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Data
 @Entity
-@RequiredArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
+@NoArgsConstructor(force = true)
 @Table(name = "users")
 public class User implements UserDetails {
 
@@ -26,18 +22,23 @@ public class User implements UserDetails {
     @Column(name = "user_id")
     private Long id;
 
-    private final String username;
+    private String username;
 
-    private final String password;
+    private String password;
 
-    private final String email;
+    private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_pokemon",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "id"))
-    private List<Pokemon> ListOfFavoritePokemon;
+    private List<Pokemon> ListOfFavoritePokemon = new ArrayList<>();
 
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 
     @Override
     public boolean isAccountNonExpired() {

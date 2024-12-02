@@ -22,12 +22,11 @@ public class PokemonService {
 
     public void savePokemon(Pokemon pokemon) {
         pokemonJPARepository.save(pokemon);
-
     }
 
 
     public Pokemon findById(Long id) {
-        return pokemonJPARepository.findById(id).orElseThrow(PokemonNotFoundException::new);
+        return pokemonJPARepository.findById(id).orElse(null);
     }
 
 

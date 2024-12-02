@@ -15,30 +15,30 @@ public class Pokemon {
     @Id
     private long id;
 
-    @Column(nullable = false)
+    //    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    //    @Column(nullable = false)
     private String primaryType;
 
 
     private String secondaryType;
 
-    @Column(nullable = false)
+    //    @Column(nullable = false)
     private int HP;
 
-    @Column(nullable = false)
+    //    @Column(nullable = false)
     private int attack;
 
-    @Column(nullable = false)
+    //    @Column(nullable = false)
     private int defense;
 
-    @Column(nullable = false)
+    //    @Column(nullable = false)
     private String sprite;
 
     @ManyToMany(mappedBy = "ListOfFavoritePokemon")
-
     @JsonIgnore
+    @Transient
     private List<User> favoritedBy;
 
     @Override

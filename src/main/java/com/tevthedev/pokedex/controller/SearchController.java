@@ -1,5 +1,6 @@
 package com.tevthedev.pokedex.controller;
 
+import com.tevthedev.pokedex.helpers.TypeIconMappingService;
 import com.tevthedev.pokedex.models.Pokemon;
 import com.tevthedev.pokedex.service.PokemonService;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,11 @@ import java.util.List;
 public class SearchController {
 
     private final PokemonService pokemonService;
+    private final TypeIconMappingService typeIconMappingService;
 
-    public SearchController(PokemonService pokemonService) {
+    public SearchController(PokemonService pokemonService, TypeIconMappingService typeIconMappingService) {
         this.pokemonService = pokemonService;
+        this.typeIconMappingService = typeIconMappingService;
     }
 
     @GetMapping
@@ -30,6 +33,7 @@ public class SearchController {
                 pokemonToDisplay.add(pokemon);
             }
         }
+        model.addAttribute("typeIcons", typeIconMappingService.getIcons());
         model.addAttribute("allPokemon", pokemonToDisplay);
         return "index";
     }
