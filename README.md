@@ -17,7 +17,7 @@ Welcome to **PokéVault**, a project that brings together my love for software d
 
 ## 🎨 **Tech Stack**
 
-This project was built
+This project was built with...
 
 ### **Backend:**
 - Java
