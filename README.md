@@ -1,7 +1,7 @@
 # **PokéVault 🔐**  
-"Your Ultimate Pokémon Tracker"
+"The Ultimate Pokémon Tracker"
 
-👋 Welcome to **PokéVault**, a project that brings together my love for software development and my inner Pokémon trainer. This app is built to help you explore, search, and manage your favorite Pokémon effortlessly.
+Welcome to **PokéVault**, a project that brings together my love for software development and my inner Pokémon trainer. This app is built to help you explore, search, and manage your favorite Pokémon effortlessly.
 
 ---
 
